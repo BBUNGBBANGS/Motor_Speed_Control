@@ -13,7 +13,7 @@
             "configFiles": 
             [
                 "interface/stlink.cfg",
-                "target/stm32f1x.cfg"
+                "target/stm32f0x.cfg"
             ],
             "svdFile": "./STM32F0x1.svd"
         }
