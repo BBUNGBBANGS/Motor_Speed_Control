@@ -6,7 +6,7 @@
             "name": "Cortex Debug",
             "cwd": "${workspaceRoot}",
             "executable": "./build/Motor_Speed_Control.elf",
-            "request": "attach",
+            "request": "launch",
             "type": "cortex-debug",
             "servertype": "openocd",
             "device": "STM32F031x6",

@@ -152,6 +152,9 @@ static void Os_Calc_Period(uint8 idx)
 		case OS_TASK_INDEX_1MS : 
 			OS_TimeOldLoc = Os_Var.Os_Tick_Period.Os_1ms_Tick_Period;
 		break;
+		case OS_TASK_INDEX_5MS : 
+			OS_TimeOldLoc = Os_Var.Os_Tick_Period.Os_5ms_Tick_Period;
+		break;
 		case OS_TASK_INDEX_10MS : 
 			OS_TimeOldLoc = Os_Var.Os_Tick_Period.Os_10ms_Tick_Period;
 		break;
@@ -168,6 +171,10 @@ static void Os_Calc_Period(uint8 idx)
 		case OS_TASK_INDEX_1MS : 
 			Os_Var.Os_Period.Os_1ms_Period = Os_TimeDiffLoc;
 			Os_Var.Os_Tick_Period.Os_1ms_Tick_Period = OS_TimeOldLoc;
+		break;
+		case OS_TASK_INDEX_5MS : 
+			Os_Var.Os_Period.Os_5ms_Period = Os_TimeDiffLoc;
+			Os_Var.Os_Tick_Period.Os_5ms_Tick_Period = OS_TimeOldLoc;
 		break;
 		case OS_TASK_INDEX_10MS : 
 			Os_Var.Os_Period.Os_10ms_Period = Os_TimeDiffLoc;
@@ -193,6 +200,9 @@ static void Os_Calc_Runtime_Start(uint8 idx)
 		case OS_TASK_INDEX_1MS : 
 			Os_Var.Os_Tick_Runtime.Os_1ms_Tick_Runtime_Start = OS_TimeLoc;
 		break;
+		case OS_TASK_INDEX_5MS : 
+			Os_Var.Os_Tick_Runtime.Os_5ms_Tick_Runtime_Start = OS_TimeLoc;
+		break;
 		case OS_TASK_INDEX_10MS : 
 			Os_Var.Os_Tick_Runtime.Os_10ms_Tick_Runtime_Start = OS_TimeLoc;
 		break;
@@ -217,6 +227,9 @@ static void Os_Calc_Runtime_Stop(uint8 idx)
 		case OS_TASK_INDEX_1MS : 
 			OS_TimeOldLoc = Os_Var.Os_Tick_Runtime.Os_1ms_Tick_Runtime_Start;
 		break;
+		case OS_TASK_INDEX_5MS : 
+			OS_TimeOldLoc = Os_Var.Os_Tick_Runtime.Os_5ms_Tick_Runtime_Start;
+		break;
 		case OS_TASK_INDEX_10MS : 
 			OS_TimeOldLoc = Os_Var.Os_Tick_Runtime.Os_10ms_Tick_Runtime_Start;
 		break;
@@ -232,6 +245,10 @@ static void Os_Calc_Runtime_Stop(uint8 idx)
 		case OS_TASK_INDEX_1MS : 
 			Os_Var.Os_Runtime.Os_1ms_Runtime = Os_TimeDiffLoc;
 			Os_Var.Os_Tick_Runtime.Os_1ms_Tick_Runtime_Stop = OS_TimeLoc;
+		break;		
+		case OS_TASK_INDEX_5MS : 
+			Os_Var.Os_Runtime.Os_5ms_Runtime = Os_TimeDiffLoc;
+			Os_Var.Os_Tick_Runtime.Os_5ms_Tick_Runtime_Stop = OS_TimeLoc;
 		break;
 		case OS_TASK_INDEX_10MS : 
 			Os_Var.Os_Runtime.Os_10ms_Runtime = Os_TimeDiffLoc;

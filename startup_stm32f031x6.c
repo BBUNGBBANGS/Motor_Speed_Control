@@ -66,13 +66,12 @@ void SystemTick_Handler(void)
     /* USER CODE END SysTick_IRQn 1 */
 }
 
-__attribute__((section(".isr_vector")))
 
 __weak void NMI_Handler(void)                           {Default_Handler();}                       
 __weak void HardFault_Handler(void)                     {Default_Handler();} 
 __weak void SVC_Handler(void)                           {Default_Handler();} 
 __weak void PendSV_Handler(void)                        {Default_Handler();} 
-__weak void SysTick_Handler(void)                       {Default_Handler();} 
+__weak void SysTick_Handler(void)                       {SystemTick_Handler();} 
 __weak void WWDG_IRQHandler(void)                       {Default_Handler();}                  
 __weak void PVD_IRQHandler(void)                        {Default_Handler();}                    
 __weak void RTC_IRQHandler(void)                        {Default_Handler();}                  
@@ -96,6 +95,7 @@ __weak void I2C1_IRQHandler(void)                       {Default_Handler();}
 __weak void SPI1_IRQHandler(void)                       {Default_Handler();}       
 __weak void USART1_IRQHandler(void)                     {Default_Handler();}                
 
+__attribute__((section(".isr_vector")))
 const void (*VectorTable[])(void) = 
 {
     (const void (*)(void))&_estack,
@@ -147,5 +147,3 @@ const void (*VectorTable[])(void) =
     0,                                 /* Reserved                     */
     0                                 /* Reserved                     */
 };
-
-
