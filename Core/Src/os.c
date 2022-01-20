@@ -1,5 +1,6 @@
 #include "os.h"
-
+#include "main.h"
+#include "as5048.h"
 Os_Var_t Os_Var;
 
 static void Os_Calc_Period(uint8 idx);
@@ -18,7 +19,7 @@ void Os_Init_Task(void)
 
 static void Os_1ms_Task(void)
 {
-
+	AS5048_Calc_Signal();
 }
 
 static void Os_5ms_Task(void)
@@ -28,7 +29,7 @@ static void Os_5ms_Task(void)
 
 static void Os_10ms_Task(void)
 {
-
+	
 }
 
 static void Os_100ms_Task(void)

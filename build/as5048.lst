@@ -1,0 +1,291 @@
+ARM GAS  C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s 			page 1
+
+
+   1              		.cpu cortex-m0
+   2              		.arch armv6s-m
+   3              		.fpu softvfp
+   4              		.eabi_attribute 20, 1
+   5              		.eabi_attribute 21, 1
+   6              		.eabi_attribute 23, 3
+   7              		.eabi_attribute 24, 1
+   8              		.eabi_attribute 25, 1
+   9              		.eabi_attribute 26, 1
+  10              		.eabi_attribute 30, 1
+  11              		.eabi_attribute 34, 0
+  12              		.eabi_attribute 18, 4
+  13              		.file	"as5048.c"
+  14              		.text
+  15              	.Ltext0:
+  16              		.cfi_sections	.debug_frame
+  17              		.global	__aeabi_ui2f
+  18              		.global	__aeabi_fmul
+  19              		.global	__aeabi_fsub
+  20              		.global	__aeabi_f2iz
+  21              		.section	.text.AS5048_Calc_Signal,"ax",%progbits
+  22              		.align	1
+  23              		.global	AS5048_Calc_Signal
+  24              		.syntax unified
+  25              		.code	16
+  26              		.thumb_func
+  28              	AS5048_Calc_Signal:
+  29              	.LFB40:
+  30              		.file 1 "Core/Src/as5048.c"
+   1:Core/Src/as5048.c **** #include "as5048.h"
+   2:Core/Src/as5048.c **** 
+   3:Core/Src/as5048.c **** uint16 AS5048_SPI_Rx_buffer[2];
+   4:Core/Src/as5048.c **** uint16 AS5048_SPI_Tx_buffer[2] = {0xFFFF,0x0000};
+   5:Core/Src/as5048.c **** uint16 AS5048_SPI_Raw;
+   6:Core/Src/as5048.c **** uint32 AS5048_Angle;
+   7:Core/Src/as5048.c **** uint8 AS5048_parity;
+   8:Core/Src/as5048.c **** uint8 AS5048_err;
+   9:Core/Src/as5048.c **** 
+  10:Core/Src/as5048.c **** void AS5048_Calc_Signal(void)
+  11:Core/Src/as5048.c **** {
+  31              		.loc 1 11 1 view -0
+  32              		.cfi_startproc
+  33              		@ args = 0, pretend = 0, frame = 0
+  34              		@ frame_needed = 0, uses_anonymous_args = 0
+  35 0000 10B5     		push	{r4, lr}
+  36              	.LCFI0:
+  37              		.cfi_def_cfa_offset 8
+  38              		.cfi_offset 4, -8
+  39              		.cfi_offset 14, -4
+  40 0002 82B0     		sub	sp, sp, #8
+  41              	.LCFI1:
+  42              		.cfi_def_cfa_offset 16
+  12:Core/Src/as5048.c ****     sint32 angle_temp;
+  43              		.loc 1 12 5 view .LVU1
+  13:Core/Src/as5048.c ****     HAL_SPI_TransmitReceive(AS5048_SPI_MODULE, AS5048_SPI_Tx_buffer, AS5048_SPI_Rx_buffer, 2, AS504
+  44              		.loc 1 13 5 view .LVU2
+  45 0004 1A4C     		ldr	r4, .L6
+ARM GAS  C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s 			page 2
+
+
+  46 0006 0A23     		movs	r3, #10
+  47 0008 0093     		str	r3, [sp]
+  48 000a 083B     		subs	r3, r3, #8
+  49 000c 2200     		movs	r2, r4
+  50 000e 1949     		ldr	r1, .L6+4
+  51 0010 1948     		ldr	r0, .L6+8
+  52 0012 FFF7FEFF 		bl	HAL_SPI_TransmitReceive
+  53              	.LVL0:
+  14:Core/Src/as5048.c ****     AS5048_SPI_Raw = AS5048_SPI_Rx_buffer[1]&AS5048_SPI_DATAMASK;
+  54              		.loc 1 14 5 view .LVU3
+  55              		.loc 1 14 42 is_stmt 0 view .LVU4
+  56 0016 6388     		ldrh	r3, [r4, #2]
+  57              		.loc 1 14 45 view .LVU5
+  58 0018 9804     		lsls	r0, r3, #18
+  59 001a 800C     		lsrs	r0, r0, #18
+  60              		.loc 1 14 20 view .LVU6
+  61 001c 174A     		ldr	r2, .L6+12
+  62 001e 1080     		strh	r0, [r2]
+  15:Core/Src/as5048.c ****     AS5048_err = (AS5048_SPI_Rx_buffer[1]>>AS5048_SPI_ERRSHIFT)&AS5048_SPI_BITMASK;
+  63              		.loc 1 15 5 is_stmt 1 view .LVU7
+  64              		.loc 1 15 64 is_stmt 0 view .LVU8
+  65 0020 9A0B     		lsrs	r2, r3, #14
+  66 0022 0121     		movs	r1, #1
+  67 0024 0A40     		ands	r2, r1
+  68              		.loc 1 15 16 view .LVU9
+  69 0026 164C     		ldr	r4, .L6+16
+  70 0028 2270     		strb	r2, [r4]
+  16:Core/Src/as5048.c ****     AS5048_parity = (AS5048_SPI_Rx_buffer[1]>>AS5048_SPI_PARITYSHIFT)&AS5048_SPI_BITMASK;
+  71              		.loc 1 16 5 is_stmt 1 view .LVU10
+  72              		.loc 1 16 70 is_stmt 0 view .LVU11
+  73 002a DB0B     		lsrs	r3, r3, #15
+  74 002c 0B40     		ands	r3, r1
+  75              		.loc 1 16 19 view .LVU12
+  76 002e 1549     		ldr	r1, .L6+20
+  77 0030 0B70     		strb	r3, [r1]
+  17:Core/Src/as5048.c ****     /*************************************************************************/
+  18:Core/Src/as5048.c ****     /* 모터 각도 범위 : 0[degree] ~ 360[degree]                              */
+  19:Core/Src/as5048.c ****     /* Angle 변수 값 범위 : 0  ~ 36000                                       */
+  20:Core/Src/as5048.c ****     /*************************************************************************/
+  21:Core/Src/as5048.c ****     if(AS5048_SPI_ERROR != AS5048_err)
+  78              		.loc 1 21 5 is_stmt 1 view .LVU13
+  79              		.loc 1 21 7 is_stmt 0 view .LVU14
+  80 0032 012A     		cmp	r2, #1
+  81 0034 15D0     		beq	.L1
+  22:Core/Src/as5048.c ****     {
+  23:Core/Src/as5048.c ****         /* Angle raw data를 Degree 값으로 변환(범위 : 0 ~ 180 degree) */
+  24:Core/Src/as5048.c ****         angle_temp = (sint32)((float)(AS5048_SPI_Raw) * (AS5048_FAC_LSB_TO_ANGLE) - 18000.0f);
+  82              		.loc 1 24 9 is_stmt 1 view .LVU15
+  83              		.loc 1 24 31 is_stmt 0 view .LVU16
+  84 0036 FFF7FEFF 		bl	__aeabi_ui2f
+  85              	.LVL1:
+  86              		.loc 1 24 55 view .LVU17
+  87 003a 1349     		ldr	r1, .L6+24
+  88 003c FFF7FEFF 		bl	__aeabi_fmul
+  89              	.LVL2:
+  90              		.loc 1 24 83 view .LVU18
+  91 0040 1249     		ldr	r1, .L6+28
+ARM GAS  C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s 			page 3
+
+
+  92 0042 FFF7FEFF 		bl	__aeabi_fsub
+  93              	.LVL3:
+  94              		.loc 1 24 20 view .LVU19
+  95 0046 FFF7FEFF 		bl	__aeabi_f2iz
+  96              	.LVL4:
+  25:Core/Src/as5048.c ****         /* Angle data 범위 변경(범위 : 0 ~ 360 degree) */
+  26:Core/Src/as5048.c ****         angle_temp = angle_temp * 2;
+  97              		.loc 1 26 9 is_stmt 1 view .LVU20
+  98              		.loc 1 26 20 is_stmt 0 view .LVU21
+  99 004a 4000     		lsls	r0, r0, #1
+ 100              	.LVL5:
+  27:Core/Src/as5048.c ****         /* overflow 방지 */
+  28:Core/Src/as5048.c ****         if(angle_temp>=36000)
+ 101              		.loc 1 28 9 is_stmt 1 view .LVU22
+ 102              		.loc 1 28 11 is_stmt 0 view .LVU23
+ 103 004c 104B     		ldr	r3, .L6+32
+ 104 004e 9842     		cmp	r0, r3
+ 105 0050 01DD     		ble	.L3
+  29:Core/Src/as5048.c ****         {
+  30:Core/Src/as5048.c ****             angle_temp = 36000 - angle_temp;
+ 106              		.loc 1 30 13 is_stmt 1 view .LVU24
+ 107              		.loc 1 30 24 is_stmt 0 view .LVU25
+ 108 0052 104B     		ldr	r3, .L6+36
+ 109 0054 181A     		subs	r0, r3, r0
+ 110              	.LVL6:
+ 111              	.L3:
+  31:Core/Src/as5048.c ****         }
+  32:Core/Src/as5048.c ****         if(angle_temp<0)
+ 112              		.loc 1 32 9 is_stmt 1 view .LVU26
+ 113              		.loc 1 32 11 is_stmt 0 view .LVU27
+ 114 0056 0028     		cmp	r0, #0
+ 115 0058 05DB     		blt	.L5
+ 116              	.L4:
+  33:Core/Src/as5048.c ****         {
+  34:Core/Src/as5048.c ****             angle_temp = 36000 + angle_temp;
+  35:Core/Src/as5048.c ****         }
+  36:Core/Src/as5048.c ****         /* Angle값이 Clock wise 회전방향일 경우, 증가하도록 변환 */
+  37:Core/Src/as5048.c ****         AS5048_Angle = (36000 - angle_temp);
+ 117              		.loc 1 37 9 is_stmt 1 view .LVU28
+ 118              		.loc 1 37 31 is_stmt 0 view .LVU29
+ 119 005a 0E4B     		ldr	r3, .L6+36
+ 120 005c 181A     		subs	r0, r3, r0
+ 121              	.LVL7:
+ 122              		.loc 1 37 22 view .LVU30
+ 123 005e 0E4B     		ldr	r3, .L6+40
+ 124 0060 1860     		str	r0, [r3]
+  38:Core/Src/as5048.c ****     }
+  39:Core/Src/as5048.c ****     else
+  40:Core/Src/as5048.c ****     {
+  41:Core/Src/as5048.c ****         /* SPI error 발생 시, 이전 각도 값 유지 */
+  42:Core/Src/as5048.c ****     }
+ 125              		.loc 1 42 5 is_stmt 1 view .LVU31
+  43:Core/Src/as5048.c ****     return;
+ 126              		.loc 1 43 5 view .LVU32
+ 127              	.L1:
+  44:Core/Src/as5048.c **** }...
+ 128              		.loc 1 44 1 is_stmt 0 view .LVU33
+ARM GAS  C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s 			page 4
+
+
+ 129 0062 02B0     		add	sp, sp, #8
+ 130              		@ sp needed
+ 131 0064 10BD     		pop	{r4, pc}
+ 132              	.LVL8:
+ 133              	.L5:
+  34:Core/Src/as5048.c ****             angle_temp = 36000 + angle_temp;
+ 134              		.loc 1 34 13 is_stmt 1 view .LVU34
+  34:Core/Src/as5048.c ****             angle_temp = 36000 + angle_temp;
+ 135              		.loc 1 34 24 is_stmt 0 view .LVU35
+ 136 0066 0B4B     		ldr	r3, .L6+36
+ 137 0068 9C46     		mov	ip, r3
+ 138 006a 6044     		add	r0, r0, ip
+ 139              	.LVL9:
+  34:Core/Src/as5048.c ****             angle_temp = 36000 + angle_temp;
+ 140              		.loc 1 34 24 view .LVU36
+ 141 006c F5E7     		b	.L4
+ 142              	.L7:
+ 143 006e C046     		.align	2
+ 144              	.L6:
+ 145 0070 00000000 		.word	.LANCHOR0
+ 146 0074 00000000 		.word	.LANCHOR1
+ 147 0078 00000000 		.word	hspi1
+ 148 007c 00000000 		.word	.LANCHOR2
+ 149 0080 00000000 		.word	.LANCHOR3
+ 150 0084 00000000 		.word	.LANCHOR4
+ 151 0088 F6280C40 		.word	1074538742
+ 152 008c 00A08C46 		.word	1183621120
+ 153 0090 9F8C0000 		.word	35999
+ 154 0094 A08C0000 		.word	36000
+ 155 0098 00000000 		.word	.LANCHOR5
+ 156              		.cfi_endproc
+ 157              	.LFE40:
+ 159              		.global	AS5048_err
+ 160              		.global	AS5048_parity
+ 161              		.global	AS5048_Angle
+ 162              		.global	AS5048_SPI_Raw
+ 163              		.global	AS5048_SPI_Tx_buffer
+ 164              		.global	AS5048_SPI_Rx_buffer
+ 165              		.section	.bss.AS5048_Angle,"aw",%nobits
+ 166              		.align	2
+ 167              		.set	.LANCHOR5,. + 0
+ 170              	AS5048_Angle:
+ 171 0000 00000000 		.space	4
+ 172              		.section	.bss.AS5048_SPI_Raw,"aw",%nobits
+ 173              		.align	1
+ 174              		.set	.LANCHOR2,. + 0
+ 177              	AS5048_SPI_Raw:
+ 178 0000 0000     		.space	2
+ 179              		.section	.bss.AS5048_SPI_Rx_buffer,"aw",%nobits
+ 180              		.align	2
+ 181              		.set	.LANCHOR0,. + 0
+ 184              	AS5048_SPI_Rx_buffer:
+ 185 0000 00000000 		.space	4
+ 186              		.section	.bss.AS5048_err,"aw",%nobits
+ 187              		.set	.LANCHOR3,. + 0
+ 190              	AS5048_err:
+ 191 0000 00       		.space	1
+ARM GAS  C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s 			page 5
+
+
+ 192              		.section	.bss.AS5048_parity,"aw",%nobits
+ 193              		.set	.LANCHOR4,. + 0
+ 196              	AS5048_parity:
+ 197 0000 00       		.space	1
+ 198              		.section	.data.AS5048_SPI_Tx_buffer,"aw"
+ 199              		.align	2
+ 200              		.set	.LANCHOR1,. + 0
+ 203              	AS5048_SPI_Tx_buffer:
+ 204 0000 FFFF     		.short	-1
+ 205 0002 0000     		.short	0
+ 206              		.text
+ 207              	.Letext0:
+ 208              		.file 2 "d:\\3.tools\\arm_gcc_toolchain\\arm-none-eabi\\include\\machine\\_default_types.h"
+ 209              		.file 3 "d:\\3.tools\\arm_gcc_toolchain\\arm-none-eabi\\include\\sys\\_stdint.h"
+ 210              		.file 4 "Drivers/CMSIS/Device/ST/STM32F0xx/Include/stm32f031x6.h"
+ 211              		.file 5 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_def.h"
+ 212              		.file 6 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_dma.h"
+ 213              		.file 7 "Drivers/STM32F0xx_HAL_Driver/Inc/stm32f0xx_hal_spi.h"
+ 214              		.file 8 "Core/Inc/vardef.h"
+ 215              		.file 9 "Core/Inc/main.h"
+ARM GAS  C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s 			page 6
+
+
+DEFINED SYMBOLS
+                            *ABS*:00000000 as5048.c
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:22     .text.AS5048_Calc_Signal:00000000 $t
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:28     .text.AS5048_Calc_Signal:00000000 AS5048_Calc_Signal
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:145    .text.AS5048_Calc_Signal:00000070 $d
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:190    .bss.AS5048_err:00000000 AS5048_err
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:196    .bss.AS5048_parity:00000000 AS5048_parity
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:170    .bss.AS5048_Angle:00000000 AS5048_Angle
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:177    .bss.AS5048_SPI_Raw:00000000 AS5048_SPI_Raw
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:203    .data.AS5048_SPI_Tx_buffer:00000000 AS5048_SPI_Tx_buffer
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:184    .bss.AS5048_SPI_Rx_buffer:00000000 AS5048_SPI_Rx_buffer
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:166    .bss.AS5048_Angle:00000000 $d
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:173    .bss.AS5048_SPI_Raw:00000000 $d
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:180    .bss.AS5048_SPI_Rx_buffer:00000000 $d
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:191    .bss.AS5048_err:00000000 $d
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:197    .bss.AS5048_parity:00000000 $d
+C:\Users\jisu8\AppData\Local\Temp\ccxxSRo3.s:199    .data.AS5048_SPI_Tx_buffer:00000000 $d
+
+UNDEFINED SYMBOLS
+__aeabi_ui2f
+__aeabi_fmul
+__aeabi_fsub
+__aeabi_f2iz
+HAL_SPI_TransmitReceive
+hspi1

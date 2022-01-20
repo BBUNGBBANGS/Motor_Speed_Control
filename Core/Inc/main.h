@@ -29,7 +29,6 @@ extern "C" {
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f0xx_hal.h"
-#include "os.h"
 #include "vardef.h"
 
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
@@ -38,6 +37,8 @@ void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 
 extern ADC_HandleTypeDef hadc;
+
+extern SPI_HandleTypeDef hspi1;
 
 extern TIM_HandleTypeDef htim1;
 extern TIM_HandleTypeDef htim2;
